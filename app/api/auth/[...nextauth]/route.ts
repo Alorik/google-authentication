@@ -6,9 +6,16 @@ const handler = NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      authorization: {
+        params: {
+          prompt: "select_account", // <- force account selection
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET
+  secret: process.env.NEXTAUTH_SECRET,
 });
 
-export { handler as POST, handler as GET}
+export { handler as GET, handler as POST };
